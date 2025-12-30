@@ -1,0 +1,41 @@
+{
+  "common": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "blogs": "Blogs",
+    "contact": "Contact",
+    "resume": "Resume",
+    "admin": "Admin",
+    "logout": "Logout"
+  },
+  "hero": {
+    "title": "Full-Stack Developer",
+    "subtitle": "I build beautiful, performant web applications using modern technologies",
+    "cta": "View My Work",
+    "github": "GitHub"
+  },
+  "projects": {
+    "title": "Featured Projects",
+    "description": "Check out some of my recent work",
+    "viewAll": "View All Projects"
+  },
+  "skills": {
+    "title": "Skills & Expertise",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "database": "Database",
+    "devops": "DevOps"
+  },
+  "contact": {
+    "title": "Get In Touch",
+    "description": "Let's work together on your next project",
+    "submit": "Send Message",
+    "success": "Message sent successfully!",
+    "error": "Failed to send message"
+  },
+  "footer": {
+    "rights": "All rights reserved",
+    "year": "2024"
+  }
+}

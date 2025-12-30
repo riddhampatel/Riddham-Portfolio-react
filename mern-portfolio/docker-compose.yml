@@ -1,0 +1,82 @@
+version: '3.8'
+
+services:
+  # MongoDB Database
+  mongodb:
+    image: mongo:7.0
+    container_name: mern-portfolio-db
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - mern-network
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: mern-portfolio-redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - mern-network
+
+  # Backend Server
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: mern-portfolio-server
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      NODE_ENV: production
+      PORT: 5000
+      MONGODB_URI: mongodb://admin:password@mongodb:27017/mern-portfolio
+      REDIS_URL: redis://redis:6379
+      CLIENT_URL: http://localhost:5173
+      JWT_SECRET: ${JWT_SECRET:-your-secret-key}
+      REFRESH_SECRET: ${REFRESH_SECRET:-your-refresh-key}
+    depends_on:
+      - mongodb
+      - redis
+    networks:
+      - mern-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Frontend Client
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: mern-portfolio-client
+    restart: always
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_URL: http://localhost:5000/api/v1
+      VITE_SOCKET_URL: http://localhost:5000
+    depends_on:
+      - server
+    networks:
+      - mern-network
+
+volumes:
+  mongodb_data:
+  redis_data:
+
+networks:
+  mern-network:
+    driver: bridge

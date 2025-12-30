@@ -1,0 +1,41 @@
+{
+  "common": {
+    "home": "Inicio",
+    "about": "Acerca de",
+    "projects": "Proyectos",
+    "blogs": "Blogs",
+    "contact": "Contacto",
+    "resume": "Currículum",
+    "admin": "Admin",
+    "logout": "Cerrar Sesión"
+  },
+  "hero": {
+    "title": "Desarrollador Full-Stack",
+    "subtitle": "Creo aplicaciones web hermosas y de alto rendimiento usando tecnologías modernas",
+    "cta": "Ver Mi Trabajo",
+    "github": "GitHub"
+  },
+  "projects": {
+    "title": "Proyectos Destacados",
+    "description": "Revisa algunos de mis trabajos recientes",
+    "viewAll": "Ver Todos los Proyectos"
+  },
+  "skills": {
+    "title": "Habilidades y Experiencia",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "database": "Base de Datos",
+    "devops": "DevOps"
+  },
+  "contact": {
+    "title": "Ponte en Contacto",
+    "description": "Trabajemos juntos en tu próximo proyecto",
+    "submit": "Enviar Mensaje",
+    "success": "¡Mensaje enviado exitosamente!",
+    "error": "Error al enviar el mensaje"
+  },
+  "footer": {
+    "rights": "Todos los derechos reservados",
+    "year": "2024"
+  }
+}
