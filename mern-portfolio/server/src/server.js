@@ -83,12 +83,19 @@ app.get('/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
+// Import routes
+import authRoutes from './routes/auth.js';
+import projectRoutes from './routes/projects.js';
+import skillRoutes from './routes/skills.js';
+import blogRoutes from './routes/blogs.js';
+import contactRoutes from './routes/contact.js';
+
 // API v1 routes
-app.use('/api/v1/auth', (req, res) => res.json({ message: 'Auth routes placeholder' }));
-app.use('/api/v1/projects', (req, res) => res.json({ message: 'Projects routes placeholder' }));
-app.use('/api/v1/skills', (req, res) => res.json({ message: 'Skills routes placeholder' }));
-app.use('/api/v1/blogs', (req, res) => res.json({ message: 'Blogs routes placeholder' }));
-app.use('/api/v1/contact', (req, res) => res.json({ message: 'Contact routes placeholder' }));
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/projects', projectRoutes);
+app.use('/api/v1/skills', skillRoutes);
+app.use('/api/v1/blogs', blogRoutes);
+app.use('/api/v1/contact', contactRoutes);
 
 // ============================================
 // SOCKET.IO EVENTS
@@ -135,7 +142,7 @@ app.use((err, req, res, next) => {
 });
 
 // ============================================
-// SERVER START
+// SERVER START  
 // ============================================
 
 const PORT = process.env.PORT || 5000;

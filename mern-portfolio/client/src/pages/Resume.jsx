@@ -14,17 +14,17 @@ const Resume = () => {
           <div>
             <h2 className="text-3xl font-bold text-secondary-400 mb-6">Experience</h2>
             <div className="border-l-2 border-secondary-400 pl-6 pb-6">
-              <h3 className="text-xl font-bold text-text-primary">Senior Full-Stack Developer</h3>
-              <p className="text-secondary-400">2023 - Present</p>
-              <p className="text-text-secondary mt-2">Led development of scalable MERN applications</p>
+              <h3 className="text-xl font-bold text-text-primary">Full-Stack Developer Intern</h3>
+              <p className="text-secondary-400">2025 - Present</p>
+              <p className="text-text-secondary mt-2"> development of scalable MERN applications</p>
             </div>
           </div>
           <div>
             <h2 className="text-3xl font-bold text-secondary-400 mb-6">Education</h2>
             <div className="border-l-2 border-secondary-400 pl-6">
-              <h3 className="text-xl font-bold text-text-primary">B.S. Computer Science</h3>
-              <p className="text-secondary-400">University, 2021</p>
-              <p className="text-text-secondary mt-2">GPA: 3.8/4.0</p>
+              <h3 className="text-xl font-bold text-text-primary">BCA  </h3>
+              <p className="text-secondary-400">Silver Oak University, 2023</p>
+              <p className="text-text-secondary mt-2">CGPA: 9.00</p>
             </div>
           </div>
         </div>

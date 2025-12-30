@@ -57,7 +57,7 @@ function App() {
   }, [isDark]);
 
   return (
-    <Router>
+    <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <div className="flex flex-col min-h-screen bg-background-950 text-text-primary">
         {/* Navigation */}
         <Navbar />

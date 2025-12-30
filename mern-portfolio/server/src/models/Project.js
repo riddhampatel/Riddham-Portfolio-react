@@ -76,8 +76,8 @@ const projectSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Create indexes for better performance
-projectSchema.index({ slug: 1 });
+// Note: slug already has unique index from schema definition
+// Create additional indexes for better performance
 projectSchema.index({ featured: 1 });
 projectSchema.index({ createdAt: -1 });
 projectSchema.index({ technologies: 1 });

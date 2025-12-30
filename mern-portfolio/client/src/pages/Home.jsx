@@ -227,14 +227,14 @@ const Home = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
               {
-                title: 'E-Commerce Platform',
-                description: 'Full-stack e-commerce solution with payment integration and admin dashboard',
-                tags: ['React', 'Node.js', 'MongoDB', 'Stripe'],
+                title: 'Doctor Appointment Booking System',
+                description: 'A comprehensive healthcare platform for booking and managing doctor appointments with real-time availability',
+                tags: ['React', 'Node.js', 'MongoDB', 'Socket.IO'],
               },
               {
-                title: 'Task Management App',
-                description: 'Real-time collaborative task management with WebSocket support',
-                tags: ['React', 'Express', 'MongoDB', 'Socket.IO'],
+                title: 'Social Dashboard Productivity Hub',
+                description: 'Unified productivity dashboard integrating social media analytics, task management, and team collaboration',
+                tags: ['React', 'TypeScript', 'Express', 'PostgreSQL'],
               },
             ].map((project) => (
               <motion.div

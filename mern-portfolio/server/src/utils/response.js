@@ -12,6 +12,18 @@ export const sendResponse = (res, status = 200, success = true, message = '', da
 };
 
 /**
+ * Success Response
+ */
+export const successResponse = (res, status = 200, message = 'Success', data = null) => {
+  return res.status(status).json({
+    success: true,
+    message,
+    data,
+    timestamp: new Date().toISOString(),
+  });
+};
+
+/**
  * Error Response
  */
 export const sendError = (res, status = 500, message = 'Internal Server Error', errors = null) => {
@@ -23,4 +35,16 @@ export const sendError = (res, status = 500, message = 'Internal Server Error', 
   });
 };
 
-export default { sendResponse, sendError };
+/**
+ * Error Response (Alias)
+ */
+export const errorResponse = (res, status = 500, message = 'Internal Server Error', errors = null) => {
+  return res.status(status).json({
+    success: false,
+    message,
+    errors,
+    timestamp: new Date().toISOString(),
+  });
+};
+
+export default { sendResponse, successResponse, sendError, errorResponse };
