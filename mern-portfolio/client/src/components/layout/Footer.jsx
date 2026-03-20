@@ -47,9 +47,9 @@ const Footer = () => {
           <div>
             <div className="flex items-center space-x-2 mb-4">
               <div className="w-8 h-8 bg-gradient-to-br from-secondary-400 to-accent-300 rounded-lg flex items-center justify-center font-bold text-primary-900 text-sm">
-                {'</>'}
+                {'>'}
               </div>
-              <span className="text-lg font-bold text-gradient">Developer</span>
+              <span className="text-lg font-bold text-gradient">RIDDHAM_</span>
             </div>
             <p className="text-text-secondary text-sm">
               {personal.role} building modern web applications.

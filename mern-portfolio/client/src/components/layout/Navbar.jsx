@@ -51,9 +51,9 @@ const Navbar = () => {
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-2 group">
               <div className="w-10 h-10 bg-gradient-to-br from-secondary-400 to-accent-300 rounded-lg flex items-center justify-center font-bold text-primary-900 group-hover:shadow-glow transition-all">
-                {'</>'} 
+                {'>'}
               </div>
-              <span className="text-xl font-bold text-gradient">{personal.name}</span>
+              <span className="text-xl font-bold text-gradient">RIDDHAM_</span>
             </Link>
 
             {/* Desktop Navigation */}
