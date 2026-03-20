@@ -11,12 +11,7 @@ import Projects from './pages/Projects';
 import Blogs from './pages/Blogs';
 import Resume from './pages/Resume';
 import Contact from './pages/Contact';
-import Login from './pages/Login';
-import AdminDashboard from './pages/AdminDashboard';
 import NotFound from './pages/NotFound';
-
-// Protected Routes
-import ProtectedRoute from './components/routes/ProtectedRoute';
 
 // Hooks
 import useTheme from './hooks/useTheme';
@@ -72,10 +67,6 @@ function App() {
             <Route path="/blogs" element={<Blogs />} />
             <Route path="/resume" element={<Resume />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/login" element={<Login />} />
-
-            {/* Admin Dashboard - Accessible without login for development */}
-            <Route path="/admin" element={<AdminDashboard />} />
 
             {/* 404 Not Found */}
             <Route path="*" element={<NotFound />} />

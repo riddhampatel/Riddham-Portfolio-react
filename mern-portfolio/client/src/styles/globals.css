@@ -61,7 +61,7 @@ body {
 
 /* Improved spacing and alignment */
 main {
-  @apply px-4 sm:px-6 lg:px-8;
+  @apply w-full;
 }
 
 section {

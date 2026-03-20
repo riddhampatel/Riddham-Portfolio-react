@@ -54,7 +54,7 @@ class APIClient {
       // Handle 401 - Token expired
       if (response.status === 401) {
         this.setToken(null);
-        window.location.href = '/login';
+        window.location.href = '/';
       }
 
       const data = await response.json();

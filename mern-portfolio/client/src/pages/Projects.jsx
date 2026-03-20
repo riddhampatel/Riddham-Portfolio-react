@@ -37,7 +37,7 @@ const Projects = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-background-950 py-20">
+      <div className="min-h-screen bg-background-950 py-14 sm:py-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center text-red-500">{error}</div>
         </div>
@@ -46,9 +46,9 @@ const Projects = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background-950 py-20">
+    <div className="min-h-screen bg-background-950 py-14 sm:py-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-5xl font-bold mb-12 text-text-primary">My Projects</h1>
+        <h1 className="text-4xl sm:text-5xl font-bold mb-10 sm:mb-12 text-text-primary">My Projects</h1>
         {projects.length === 0 ? (
           <div className="text-center text-text-secondary py-20">
             <p className="text-xl">No projects available yet.</p>

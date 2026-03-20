@@ -1,23 +1,24 @@
-# 🚀 MERN Stack Developer Portfolio
+# MERN Portfolio
 
-A modern, full-stack developer portfolio showcasing projects and skills with a professional design and seamless user experience.
+Personal developer portfolio built with a React frontend and Node.js/Express backend.
 
-## 📋 About
+## Overview
 
-A complete portfolio website built with the MERN stack, featuring an admin dashboard for easy content management. Includes featured projects: Doctor Appointment Booking System and Social Dashboard Productivity Hub.
+This project is structured as an npm workspace monorepo:
 
-## ✨ Features
+- `client`: Vite + React frontend
+- `server`: Express + MongoDB backend
 
-- 🌓 **Dark/Light Theme** - Smooth theme switching with persistence
-- 📱 **Fully Responsive** - Optimized for mobile, tablet, and desktop
-- ⚡ **Fast Performance** - Built with Vite for lightning-fast load times
-- 🎨 **Modern UI** - Clean design with Framer Motion animations
-- 🔐 **Admin Dashboard** - Manage projects without touching code
-- 💾 **MongoDB Integration** - Dynamic data storage and retrieval
-- 🔄 **Real-time Updates** - Live data synchronization
-- 📧 **Contact Form** - Direct communication from visitors
+The frontend now uses a content-first approach: profile info, social links, resume link, and blog data are maintained from one file.
 
-## 🛠️ Tech Stack
+## Current App Scope
+
+- Public portfolio pages: Home, About, Projects, Blogs, Resume, Contact
+- Responsive UI with Tailwind and Framer Motion
+- Contact API integration
+- No admin dashboard route in frontend
+
+## Tech Stack
 
 ### Frontend
 - React 18
@@ -31,157 +32,151 @@ A complete portfolio website built with the MERN stack, featuring an admin dashb
 ### Backend
 - Node.js
 - Express.js
-- MongoDB
-- Mongoose
+- MongoDB + Mongoose
 - Socket.IO
-- JWT Authentication
-- CORS
+- JWT utilities and middleware (backend side)
 
-### DevOps
-- Docker & Docker Compose
-- GitHub Actions
+### Tooling
+- npm workspaces
+- Docker and Docker Compose
 
-## 📂 Project Structure
+## Project Structure
 
-```
+```text
 mern-portfolio/
-├── client/              # Frontend React application
-│   ├── src/
-│   │   ├── components/  # Reusable UI components
-│   │   ├── pages/       # Page components
-│   │   ├── hooks/       # Custom React hooks
-│   │   ├── store/       # Redux store
-│   │   └── styles/      # Global styles
-│   └── package.json
-│
-├── server/              # Backend Express API
-│   ├── src/
-│   │   ├── routes/      # API endpoints
-│   │   ├── models/      # MongoDB schemas
-│   │   ├── controllers/ # Business logic
-│   │   └── middleware/  # Auth & validation
-│   └── package.json
-│
-└── README.md
+|-- client/
+|   |-- public/
+|   |-- src/
+|   |   |-- components/
+|   |   |-- data/
+|   |   |-- pages/
+|   |   |-- store/
+|   |   `-- styles/
+|   `-- package.json
+|-- server/
+|   |-- src/
+|   |   |-- controllers/
+|   |   |-- middleware/
+|   |   |-- models/
+|   |   `-- routes/
+|   `-- package.json
+|-- docker-compose.yml
+|-- package.json
+`-- README.md
 ```
 
-## 🚀 Quick Start
+## Prerequisites
 
-### Prerequisites
-- Node.js 16+
+- Node.js 18+
+- npm 9+
 - MongoDB (local or cloud)
 
-### Installation
+## Environment Variables
 
-```bash
-# Install backend dependencies
-cd server
-npm install
+Create a `.env` file in `server/`:
 
-# Install frontend dependencies
-cd ../client
-npm install
-
-# Configure environment (server/.env)
+```env
 MONGODB_URI=mongodb://localhost:27017/mern-portfolio
 JWT_SECRET=your_secret_key
 PORT=5000
 CLIENT_URL=http://localhost:5173
+```
 
-# Seed database
-cd server
-node seedProjects.js
+Frontend optional env in `client/.env`:
 
-# Start backend (new terminal)
-npm run dev
+```env
+VITE_API_URL=http://localhost:5000/api/v1
+VITE_SOCKET_URL=http://localhost:5000
+```
 
-# Start frontend (new terminal)
-cd ../client
+## Local Development
+
+Install dependencies from project root:
+
+```bash
+npm install
+```
+
+Run frontend and backend together:
+
+```bash
 npm run dev
 ```
 
-**Access:**
-- Frontend: http://localhost:5173
-- Backend: http://localhost:5000
-- Admin: http://localhost:5173/admin
+Or run separately:
 
-## 📄 Pages
+```bash
+npm run dev:client
+npm run dev:server
+```
 
-- **Home** - Landing page with featured projects
-- **About** - Bio, experience, and skills
-- **Projects** - Portfolio projects showcase
-- **Blogs** - Articles and blog posts
-- **Resume** - Work experience and education
-- **Contact** - Contact form
-- **Admin Dashboard** - Content management (no coding required)
+Default local URLs:
 
-## 🎯 Key Highlights
+- Frontend: `http://localhost:5173`
+- Backend: `http://localhost:5000`
 
-### Admin Dashboard
-Easily manage your portfolio content through an intuitive admin panel:
-- Add/Edit/Delete projects
-- Update about section
-- Manage skills
-- No coding required
+## Build and Run
 
-### Theme System
-- Toggle between dark and light modes
-- Auto-detects system preference
-- Smooth transitions
-- Persistent across sessions
+Build all workspaces:
 
-### Responsive Design
-- Mobile-first approach
-- Optimized for all screen sizes
-- Touch-friendly interface
+```bash
+npm run build
+```
 
-## 🔌 API Endpoints
+Start backend in production mode:
 
-### Projects
-- `GET /api/v1/projects` - Get all projects
-- `GET /api/v1/projects/:id` - Get single project
-- `POST /api/v1/projects` - Create project (admin)
-- `PUT /api/v1/projects/:id` - Update project (admin)
-- `DELETE /api/v1/projects/:id` - Delete project (admin)
+```bash
+npm run start
+```
 
-### Skills
-- `GET /api/v1/skills` - Get all skills
-- `POST /api/v1/skills` - Add skill (admin)
-- `DELETE /api/v1/skills/:id` - Delete skill (admin)
+## Portfolio Content Editing
 
-### Contact
-- `POST /api/v1/contact` - Send message
-- `GET /api/v1/contact` - Get messages (admin)
+Main content source:
 
-### Authentication
-- `POST /api/v1/auth/login` - Admin login
-- `GET /api/v1/auth/me` - Get current user
+- `client/src/data/portfolioContent.js`
 
-## 🚀 Deployment
+Update this file to change:
 
-### Backend (Render.com)
-1. Push code to GitHub
-2. Create new Web Service on [render.com](https://render.com)
-3. Connect repository
-4. Set root directory to `server`
-5. Add environment variables
-6. Deploy
+- Name and personal details
+- Social links
+- Featured projects/blog cards
+- Resume metadata
 
-### Frontend (Vercel)
-1. Import repository on [vercel.com](https://vercel.com)
-2. Set root directory to `client`
-3. Add `VITE_API_URL` environment variable
-4. Deploy
+Resume file location:
 
-### Docker
+- Place the PDF in `client/public/` (for example `client/public/ResumeR.pdf`)
+- Set `resume.downloadUrl` in `client/src/data/portfolioContent.js` to match
+
+## API Endpoints (Core)
+
+- `GET /api/v1/projects`
+- `GET /api/v1/projects/:id`
+- `GET /api/v1/skills`
+- `POST /api/v1/contact`
+
+## Docker
+
+Build and start containers:
+
 ```bash
 docker-compose up --build
 ```
 
-## 📄 License
+Or via scripts:
 
-MIT License - Free for personal and commercial use
+```bash
+npm run docker:build
+npm run docker:up
+npm run docker:down
+```
 
----
+## Deployment Notes
 
-**Built with ❤️ using MERN Stack**
+- Deploy backend first, then frontend
+- Set frontend `VITE_API_URL` to your deployed backend API base
+- Set backend `CLIENT_URL` to your deployed frontend domain
+- Ensure `MONGODB_URI` and `JWT_SECRET` are configured in backend environment
+
+## License
+
+MIT

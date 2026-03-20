@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { FiGithub, FiLinkedin, FiMail, FiTwitter } from 'react-icons/fi';
+import { portfolioContent } from '../../data/portfolioContent';
 
 /**
  * Footer Component
@@ -7,6 +8,7 @@ import { FiGithub, FiLinkedin, FiMail, FiTwitter } from 'react-icons/fi';
  */
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { personal, social } = portfolioContent;
 
   const footerLinks = [
     {
@@ -29,9 +31,9 @@ const Footer = () => {
     {
       title: 'Social',
       links: [
-        { label: 'GitHub', href: 'https://github.com', external: true },
-        { label: 'LinkedIn', href: 'https://linkedin.com', external: true },
-        { label: 'Twitter', href: 'https://twitter.com', external: true },
+        { label: 'GitHub', href: social.github, external: true },
+        { label: 'LinkedIn', href: social.linkedin, external: true },
+        ...(social.twitter ? [{ label: 'Twitter', href: social.twitter, external: true }] : []),
       ],
     },
   ];
@@ -50,7 +52,7 @@ const Footer = () => {
               <span className="text-lg font-bold text-gradient">Developer</span>
             </div>
             <p className="text-text-secondary text-sm">
-              Full-stack developer building modern web applications with React, Node.js, and MongoDB.
+              {personal.role} building modern web applications.
             </p>
           </div>
 
@@ -91,38 +93,40 @@ const Footer = () => {
         {/* Bottom Footer */}
         <div className="flex flex-col md:flex-row items-center justify-between">
           <p className="text-text-secondary text-sm">
-            &copy; {currentYear} Your Name. All rights reserved.
+            &copy; {currentYear} {personal.name}. All rights reserved.
           </p>
 
           {/* Social Icons */}
           <div className="flex items-center space-x-4 mt-4 md:mt-0">
             <a
-              href="https://github.com"
+              href={social.github}
               className="p-2 hover:bg-white/5 rounded-lg transition-colors text-text-secondary hover:text-secondary-400"
               aria-label="GitHub"
             >
               <FiGithub className="w-5 h-5" />
             </a>
             <a
-              href="https://linkedin.com"
+              href={social.linkedin}
               className="p-2 hover:bg-white/5 rounded-lg transition-colors text-text-secondary hover:text-secondary-400"
               aria-label="LinkedIn"
             >
               <FiLinkedin className="w-5 h-5" />
             </a>
+            {social.twitter && (
+              <a
+                href={social.twitter}
+                className="p-2 hover:bg-white/5 rounded-lg transition-colors text-text-secondary hover:text-secondary-400"
+                aria-label="Twitter"
+              >
+                <FiTwitter className="w-5 h-5" />
+              </a>
+            )}
             <a
-              href="https://twitter.com"
-              className="p-2 hover:bg-white/5 rounded-lg transition-colors text-text-secondary hover:text-secondary-400"
-              aria-label="Twitter"
-            >
-              <FiTwitter className="w-5 h-5" />
-            </a>
-            <a
-              href="mailto:your@email.com"
+              href={`mailto:${personal.email}`}
               className="p-2 hover:bg-white/5 rounded-lg transition-colors text-text-secondary hover:text-secondary-400"
               aria-label="Email"
             >
-              📧
+              <FiMail className="w-5 h-5" />
             </a>
           </div>
         </div>

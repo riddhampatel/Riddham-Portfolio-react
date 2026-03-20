@@ -1,14 +1,22 @@
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { FiArrowRight, FiGithub, FiLinkedin } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
+import { portfolioContent } from '../data/portfolioContent';
 
 /**
  * Home Page Component
  * Landing page with hero section, featured projects, and CTA
  */
 const Home = () => {
+  const { personal, social, skillsPreview, featuredProjects, stats } = portfolioContent;
+  const roleVariants = ['MERN Stack Developer', 'Full Stack Developer'];
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [typedRole, setTypedRole] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -24,8 +32,37 @@ const Home = () => {
     visible: { opacity: 1, y: 0 },
   };
 
+  useEffect(() => {
+    const currentRole = roleVariants[roleIndex];
+    const typingSpeed = isDeleting ? 45 : 85;
+    const pauseAfterTyping = 2200;
+
+    const timer = setTimeout(() => {
+      if (!isDeleting && typedRole === currentRole) {
+        setIsDeleting(true);
+        return;
+      }
+
+      if (isDeleting && typedRole === '') {
+        setIsDeleting(false);
+        setRoleIndex((prev) => (prev + 1) % roleVariants.length);
+        return;
+      }
+
+      setTypedRole((prev) => {
+        if (isDeleting) {
+          return prev.slice(0, -1);
+        }
+
+        return currentRole.slice(0, prev.length + 1);
+      });
+    }, !isDeleting && typedRole === currentRole ? pauseAfterTyping : typingSpeed);
+
+    return () => clearTimeout(timer);
+  }, [typedRole, isDeleting, roleIndex]);
+
   return (
-    <div className="min-h-screen bg-background-950 pt-4">
+    <div className="min-h-screen bg-background-950 pt-2 sm:pt-4">
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
         <motion.div
@@ -35,12 +72,16 @@ const Home = () => {
           className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center justify-items-center"
         >
           {/* Left Content */}
-          <div className="space-y-8 flex flex-col justify-center w-full">
+          <div className="space-y-8 flex flex-col justify-center w-full text-center md:text-left">
             <motion.div variants={itemVariants}>
-              <h1 className="text-5xl md:text-6xl font-bold leading-tight">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight">
                 <span className="text-text-secondary text-2xl md:text-3xl block mb-2">Hi, I'm</span>
-                <span className="text-gradient block mb-2">Riyank</span>
-                <span className="text-text-primary">Full-Stack Developer</span>
+                <span className="text-gradient block mb-2">{personal.name}</span>
+                <span className="inline-block mt-2 min-h-[2.5rem] md:min-h-[3rem] text-secondary-300 text-2xl md:text-3xl font-semibold tracking-tight">
+                  {typedRole}
+                  <span className="ml-1 text-secondary-400">|</span>
+                  <span className="block h-1 w-24 md:w-28 mt-2 rounded-full bg-gradient-to-r from-secondary-400 via-accent-300 to-transparent mx-auto md:mx-0" />
+                </span>
               </h1>
             </motion.div>
 
@@ -48,12 +89,23 @@ const Home = () => {
               variants={itemVariants}
               className="text-lg text-text-secondary leading-relaxed"
             >
-              I build beautiful, performant web applications using modern technologies like React, Node.js, and MongoDB. Specialized in creating scalable architecture and exceptional user experiences.
+              {personal.headline}
             </motion.p>
 
+            {/* Mobile Profile Image */}
+            <motion.div variants={itemVariants} className="md:hidden flex justify-center">
+              <div className="relative w-44 h-44 rounded-full shadow-glow-lg overflow-hidden border-2 border-secondary-400/40">
+                <img
+                  src="/images/profile.jpg"
+                  alt={personal.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </motion.div>
+
             {/* Skills Preview */}
-            <motion.div variants={itemVariants} className="flex flex-wrap gap-3">
-              {['React', 'Node.js', 'MongoDB', 'TypeScript'].map((skill) => (
+            <motion.div variants={itemVariants} className="flex flex-wrap gap-3 justify-center md:justify-start">
+              {skillsPreview.map((skill) => (
                 <span key={skill} className="px-4 py-2 bg-secondary-400/10 text-secondary-400 rounded-full text-sm font-medium hover:bg-secondary-400/20 transition-colors">
                   {skill}
                 </span>
@@ -61,15 +113,20 @@ const Home = () => {
             </motion.div>
 
             {/* CTA Buttons */}
-            <motion.div variants={itemVariants} className="flex gap-4 flex-wrap pt-4">
+            <motion.div variants={itemVariants} className="flex gap-4 flex-wrap pt-2 justify-center md:justify-start">
               <Link to="/projects">
                 <Button variant="primary" size="lg">
                   View My Work <FiArrowRight className="w-5 h-5" />
                 </Button>
               </Link>
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+              <a href={social.github} target="_blank" rel="noopener noreferrer">
                 <Button variant="secondary" size="lg">
                   <FiGithub className="w-5 h-5" /> GitHub
+                </Button>
+              </a>
+              <a href={social.linkedin} target="_blank" rel="noopener noreferrer">
+                <Button variant="secondary" size="lg">
+                  <FiLinkedin className="w-5 h-5" /> LinkedIn
                 </Button>
               </a>
             </motion.div>
@@ -203,7 +260,7 @@ const Home = () => {
             <div className="relative w-80 h-80 rounded-full shadow-glow-lg overflow-hidden border-2 border-secondary-400/50 z-10">
               <img 
                 src="/images/profile.jpg" 
-                alt="Your Profile"
+                alt={personal.name}
                 className="w-full h-full object-contain scale-110"
               />
             </div>
@@ -212,7 +269,7 @@ const Home = () => {
       </section>
 
       {/* Featured Projects */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -224,43 +281,38 @@ const Home = () => {
             <p className="text-text-secondary">Check out some of my recent work</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {[
-              {
-                title: 'Doctor Appointment Booking System',
-                description: 'A comprehensive healthcare platform for booking and managing doctor appointments with real-time availability',
-                tags: ['React', 'Node.js', 'MongoDB', 'Socket.IO'],
-              },
-              {
-                title: 'Social Dashboard Productivity Hub',
-                description: 'Unified productivity dashboard integrating social media analytics, task management, and team collaboration',
-                tags: ['React', 'TypeScript', 'Express', 'PostgreSQL'],
-              },
-            ].map((project) => (
-              <motion.div
-                key={project.title}
-                whileHover={{ y: -5 }}
-                className="card-hover"
-              >
-                <Card>
-                  <h3 className="text-xl font-bold text-text-primary mb-3">
-                    {project.title}
-                  </h3>
-                  <p className="text-text-secondary mb-4">{project.description}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-2.5 py-1 bg-secondary-400/10 text-secondary-400 rounded text-xs font-medium"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
+          {featuredProjects.length === 0 ? (
+            <Card>
+              <p className="text-text-secondary">Add your real featured projects in client/src/data/portfolioContent.js.</p>
+            </Card>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {featuredProjects.map((project) => (
+                <motion.div
+                  key={project.title}
+                  whileHover={{ y: -5 }}
+                  className="card-hover"
+                >
+                  <Card>
+                    <h3 className="text-xl font-bold text-text-primary mb-3">
+                      {project.title}
+                    </h3>
+                    <p className="text-text-secondary mb-4">{project.description}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {(project.tags || []).map((tag) => (
+                        <span
+                          key={tag}
+                          className="px-2.5 py-1 bg-secondary-400/10 text-secondary-400 rounded text-xs font-medium"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+          )}
 
           <Link to="/projects">
             <Button variant="secondary" size="lg" className="mt-8">
@@ -271,14 +323,9 @@ const Home = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {[
-            { label: 'Projects', value: '25+' },
-            { label: 'Happy Clients', value: '15+' },
-            { label: 'Years Experience', value: '3+' },
-            { label: 'GitHub Stars', value: '500+' },
-          ].map((stat) => (
+          {stats.map((stat) => (
             <Card key={stat.label} className="text-center">
               <p className="text-3xl font-bold text-gradient mb-2">{stat.value}</p>
               <p className="text-text-secondary text-sm">{stat.label}</p>

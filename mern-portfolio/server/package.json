@@ -21,7 +21,7 @@
     "express",
     "mongodb"
   ],
-  "author": "Your Name",
+  "author": "Riyank",
   "license": "MIT",
   "dependencies": {
     "express": "^4.18.2",

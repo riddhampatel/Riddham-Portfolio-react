@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FiMenu, FiX, FiGithub, FiLinkedin, FiMail, FiSettings } from 'react-icons/fi';
+import { FiMenu, FiX, FiGithub, FiLinkedin, FiMail } from 'react-icons/fi';
 import useTheme from '../../hooks/useTheme';
+import { portfolioContent } from '../../data/portfolioContent';
 
 /**
  * Navbar Component
@@ -13,6 +14,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const { isDark, toggleTheme } = useTheme();
+  const { personal, social } = portfolioContent;
 
   const navItems = [
     { name: 'Home', path: '/' },
@@ -51,7 +53,7 @@ const Navbar = () => {
               <div className="w-10 h-10 bg-gradient-to-br from-secondary-400 to-accent-300 rounded-lg flex items-center justify-center font-bold text-primary-900 group-hover:shadow-glow transition-all">
                 {'</>'} 
               </div>
-              <span className="text-xl font-bold text-gradient">Dev</span>
+              <span className="text-xl font-bold text-gradient">{personal.name}</span>
             </Link>
 
             {/* Desktop Navigation */}
@@ -81,16 +83,6 @@ const Navbar = () => {
 
             {/* Right side controls */}
             <div className="flex items-center space-x-4">
-              {/* Admin Dashboard Button */}
-              <Link
-                to="/admin"
-                className="hidden sm:flex items-center gap-2 px-4 py-2 bg-secondary-400/10 hover:bg-secondary-400/20 text-secondary-400 rounded-lg transition-all text-sm font-medium"
-                title="Admin Dashboard"
-              >
-                <FiSettings className="w-4 h-4" />
-                <span>Admin</span>
-              </Link>
-
               {/* Theme Toggle */}
               <button
                 onClick={toggleTheme}
@@ -139,34 +131,24 @@ const Navbar = () => {
               </Link>
             ))}
 
-            {/* Mobile Admin Dashboard */}
-            <Link
-              to="/admin"
-              onClick={() => setIsOpen(false)}
-              className="flex items-center gap-2 px-4 py-3 bg-secondary-400/20 text-secondary-400 rounded-lg transition-colors"
-            >
-              <FiSettings className="w-5 h-5" />
-              Admin Dashboard
-            </Link>
-
             {/* Mobile Social Links */}
             <div className="flex space-x-4 pt-4 border-t border-white/10">
               <a
-                href="https://github.com"
+                href={social.github}
                 className="p-2 hover:bg-white/5 rounded-lg transition-colors text-text-secondary hover:text-secondary-400"
                 aria-label="GitHub"
               >
                 <FiGithub className="w-5 h-5" />
               </a>
               <a
-                href="https://linkedin.com"
+                href={social.linkedin}
                 className="p-2 hover:bg-white/5 rounded-lg transition-colors text-text-secondary hover:text-secondary-400"
                 aria-label="LinkedIn"
               >
                 <FiLinkedin className="w-5 h-5" />
               </a>
               <a
-                href="mailto:your@email.com"
+                href={`mailto:${personal.email}`}
                 className="p-2 hover:bg-white/5 rounded-lg transition-colors text-text-secondary hover:text-secondary-400"
                 aria-label="Email"
               >
