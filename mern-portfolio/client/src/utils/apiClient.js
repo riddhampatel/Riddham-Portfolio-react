@@ -3,7 +3,17 @@
  * Centralized API calls with authentication
  */
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1';
+const configuredApiUrl = import.meta.env.VITE_API_URL;
+const isProduction = import.meta.env.PROD;
+const pointsToLocalhost = configuredApiUrl && /localhost|127\.0\.0\.1/i.test(configuredApiUrl);
+
+// In production, avoid localhost defaults because browsers cannot reach your local machine.
+const API_URL =
+  configuredApiUrl && !(isProduction && pointsToLocalhost)
+    ? configuredApiUrl
+    : isProduction
+      ? '/api/v1'
+      : 'http://localhost:5000/api/v1';
 
 class APIClient {
   constructor() {
