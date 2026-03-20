@@ -6,6 +6,8 @@
 const configuredApiUrl = import.meta.env.VITE_API_URL;
 const isProduction = import.meta.env.PROD;
 const pointsToLocalhost = configuredApiUrl && /localhost|127\.0\.0\.1/i.test(configuredApiUrl);
+const isHostedFrontend =
+  typeof window !== 'undefined' && !/localhost|127\.0\.0\.1/i.test(window.location.hostname);
 
 // In production, avoid localhost defaults because browsers cannot reach your local machine.
 const API_URL =
@@ -52,6 +54,12 @@ class APIClient {
    * Make API request
    */
   async request(endpoint, options = {}) {
+    if (isProduction && isHostedFrontend && !configuredApiUrl) {
+      throw new Error(
+        'VITE_API_URL is not configured for production. Set it to your backend URL, e.g. https://your-backend-domain/api/v1'
+      );
+    }
+
     const url = `${this.baseURL}${endpoint}`;
     const config = {
       ...options,
@@ -65,6 +73,17 @@ class APIClient {
       if (response.status === 401) {
         this.setToken(null);
         window.location.href = '/';
+      }
+
+      const contentType = response.headers.get('content-type') || '';
+      const isJsonResponse = contentType.includes('application/json');
+
+      if (!isJsonResponse) {
+        const bodyText = await response.text();
+        const preview = bodyText.slice(0, 120).replace(/\s+/g, ' ').trim();
+        throw new Error(
+          `API returned non-JSON response (${response.status}). ${preview || 'Empty response body.'}`
+        );
       }
 
       const data = await response.json();
